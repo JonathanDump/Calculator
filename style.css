@@ -1,0 +1,60 @@
+body {
+    background-color: #1b1a1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-body{
+    background-color: #222328;
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    height: 640px;
+    border-radius: 25px;
+    overflow: hidden;
+    gap: 12px;
+    padding: 10px;
+    
+
+}
+
+.screen {
+    background-color: #30333c;
+    width: 100%;
+    height: 40%;
+    border-radius: 25px;
+    box-shadow: 0px 0px 9px 0px rgba(100, 100, 111, 0.2);
+}
+
+.dial {
+    background-color: #30333c;
+    border-radius: 25px;
+    height: 100%;
+    box-shadow: 0px 0px 9px 0px rgba(100, 100, 111, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.dial-row{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 6px;
+}
+
+button{
+    border-radius: 25px;
+    font-size: 26px;
+    font-family: serif;
+    min-width: 80.5px;
+    min-height: 75.2px;
+}
+
+#clear, #backspace {
+min-width: 123.75px;
+
+}

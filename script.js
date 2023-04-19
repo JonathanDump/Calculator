@@ -89,10 +89,9 @@ buttons.forEach(button => button.addEventListener("click", () => {
     } else if (button.className == "number") { //BUTTON IS A NUMBER
         if (equalIsPressed === true && operator != "") {
             equalIsPressed = false;
-            // firstNumber = button.textContent;
-            // screenInput.textContent = button.textContent;
-        }
-        if (firstNumber == "") {
+            firstNumber = button.textContent;
+            screenInput.textContent = button.textContent;
+        }else if (firstNumber == "") {
             firstNumber += button.textContent;
             screenInput.textContent = "";
             screenInput.textContent += button.textContent;
@@ -101,7 +100,6 @@ buttons.forEach(button => button.addEventListener("click", () => {
             screenInput.textContent += button.textContent;
         } else {
             secondNumber += button.textContent;
-
             screenInput.textContent += button.textContent;
         }
     }

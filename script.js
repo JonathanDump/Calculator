@@ -1,6 +1,7 @@
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
+let equalResult = "";
 
 let equalIsPressed = false;
 
@@ -60,6 +61,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
         secondNumber = "";
         screenInput.textContent = "";
         screenResult.textContent = "";
+        equalIsPressed = false;
 
     } if (button === equal) {
         if (firstNumber == "" && operator == "" && secondNumber == "") {
@@ -69,15 +71,21 @@ buttons.forEach(button => button.addEventListener("click", () => {
         let result = operate(+firstNumber, operator, +secondNumber);
         screenResult.textContent = `${operate(+firstNumber, operator, +secondNumber)}`;
         firstNumber = result.toString();
+        equalResult = result.toString();
         // operator = "";
         secondNumber = "";
         screenInput.textContent = "";
         }
+    // } else if (button === operator && equalIsPressed){
+    //     operator = button.textContent;
+    //     screenResult.textContent += button.textContent;
+
     } else if (firstNumber !== "" && operator !== "" && secondNumber !== "" && button.className == "operator math") {
         let result = operate(+firstNumber, operator, +secondNumber);
         operator = button.textContent;
         screenResult.textContent = `${result} ${operator}`;
         firstNumber = result.toString();
+        equalResult = result.toString();
         screenInput.textContent = "";
         secondNumber = "";
     } else if (button.className == "operator math" && button != equal) {
@@ -87,7 +95,11 @@ buttons.forEach(button => button.addEventListener("click", () => {
             screenResult.textContent = `${firstNumber} ${operator}`;
         }
     } else if (button.className == "number") { //BUTTON IS A NUMBER
-        if (equalIsPressed === true && operator != "") {
+        if (operator !== "" && equalResult !== ""){
+            firstNumber = equalResult;
+            secondNumber = button.textContent;
+            screenInput.textContent = button.textContent;
+        } else if (equalIsPressed === true && operator != "") {
             equalIsPressed = false;
             firstNumber = button.textContent;
             screenInput.textContent = button.textContent;

@@ -73,10 +73,6 @@ buttons.forEach(button => button.addEventListener("click", () => {
         secondNumber = "";
         screenInput.textContent = "";
         }
-    // } else if (button === operator && equalIsPressed){
-    //     operator = button.textContent;
-    //     screenResult.textContent += button.textContent;
-
     } else if (firstNumber !== "" && operator !== "" && secondNumber !== "" && button.className == "operator math") {
         let result = operate(+firstNumber, operator, +secondNumber);
         operator = button.textContent;
@@ -90,7 +86,10 @@ buttons.forEach(button => button.addEventListener("click", () => {
         screenInput.textContent = "";
         if (firstNumber != "") {
             screenResult.textContent = `${firstNumber} ${operator}`;
+            equalIsPressed = false;
         }
+
+
     } else if (button.className == "number") { //BUTTON IS A NUMBER
         if (screenInput.textContent.length === 17){
             return;

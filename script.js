@@ -26,9 +26,6 @@ buttons.forEach(button => button.addEventListener("mousedown", () => {
 
 
 buttons.forEach(button => button.addEventListener("click", () => {
-    if (screenInput.textContent.length === 17){
-        return;
-    }
     if (button === decimal) {
         if (screenInput.textContent.match(".") === ".") {
             return;
@@ -62,7 +59,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
         screenInput.textContent = "";
         screenResult.textContent = "";
         equalIsPressed = false;
-
+        equalResult = "";
     } if (button === equal) {
         if (firstNumber == "" && operator == "" && secondNumber == "") {
             return;
@@ -95,10 +92,20 @@ buttons.forEach(button => button.addEventListener("click", () => {
             screenResult.textContent = `${firstNumber} ${operator}`;
         }
     } else if (button.className == "number") { //BUTTON IS A NUMBER
-        if (operator !== "" && equalResult !== ""){
+        if (screenInput.textContent.length === 17){
+            return;
+        } else if (operator !== "" && equalResult !== "" && equalIsPressed === true){
+            firstNumber = button.textContent;
+            screenInput.textContent += button.textContent;
+            equalIsPressed = false;
+            equalResult = "";
+            operator = "";
+        } else if (operator !== "" && equalResult !== ""){
             firstNumber = equalResult;
             secondNumber = button.textContent;
-            screenInput.textContent = button.textContent;
+            screenInput.textContent += button.textContent;
+            equalResult = "";
+            equalIsPressed = false;
         } else if (equalIsPressed === true && operator != "") {
             equalIsPressed = false;
             firstNumber = button.textContent;
@@ -114,6 +121,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
             secondNumber += button.textContent;
             screenInput.textContent += button.textContent;
         }
+        
     }
 
 }));

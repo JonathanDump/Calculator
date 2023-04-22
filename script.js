@@ -31,11 +31,21 @@ buttons.forEach(button => button.addEventListener("click", () => {
             return;
         } else {
             if (operator !== "") {
-                secondNumber += "."
-                screenInput.textContent += "."
+                if (secondNumber === "") {
+                    secondNumber += "0."
+                    screenInput.textContent += "0."
+                } else {
+                    secondNumber += "."
+                    screenInput.textContent += "."
+                }
             } else {
-                firstNumber += "."
-                screenInput.textContent += "."
+                if (screenInput.textContent === "") {
+                    firstNumber += "0."
+                    screenInput.textContent += "0."
+                } else {
+                    firstNumber += "."
+                    screenInput.textContent += "."
+                }
             }
         }
 
@@ -64,17 +74,17 @@ buttons.forEach(button => button.addEventListener("click", () => {
         if (firstNumber == "" && operator == "" && secondNumber == "") {
             return;
         } else {
-        equalIsPressed = true;
-        let result = operate(+firstNumber, operator, +secondNumber);
-        screenResult.textContent = `${operate(+firstNumber, operator, +secondNumber)}`;
-        firstNumber = result.toString();
-        equalResult = result.toString();
-        // operator = "";
-        secondNumber = "";
-        screenInput.textContent = "";
+            equalIsPressed = true;
+            let result = roundResult(operate(+firstNumber, operator, +secondNumber));
+            screenResult.textContent = result;
+            firstNumber = result.toString();
+            equalResult = result.toString();
+            // operator = "";
+            secondNumber = "";
+            screenInput.textContent = "";
         }
     } else if (firstNumber !== "" && operator !== "" && secondNumber !== "" && button.className == "operator math") {
-        let result = operate(+firstNumber, operator, +secondNumber);
+        let result = roundResult(operate(+firstNumber, operator, +secondNumber));
         operator = button.textContent;
         screenResult.textContent = `${result} ${operator}`;
         firstNumber = result.toString();
@@ -91,15 +101,15 @@ buttons.forEach(button => button.addEventListener("click", () => {
 
 
     } else if (button.className == "number") { //BUTTON IS A NUMBER
-        if (screenInput.textContent.length === 17){
+        if (screenInput.textContent.length === 17) {
             return;
-        } else if (operator !== "" && equalResult !== "" && equalIsPressed === true){
+        } else if (operator !== "" && equalResult !== "" && equalIsPressed === true) {
             firstNumber = button.textContent;
             screenInput.textContent += button.textContent;
             equalIsPressed = false;
             equalResult = "";
             operator = "";
-        } else if (operator !== "" && equalResult !== ""){
+        } else if (operator !== "" && equalResult !== "") {
             firstNumber = equalResult;
             secondNumber = button.textContent;
             screenInput.textContent += button.textContent;
@@ -109,7 +119,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
             equalIsPressed = false;
             firstNumber = button.textContent;
             screenInput.textContent = button.textContent;
-        }else if (firstNumber == "") {
+        } else if (firstNumber == "") {
             firstNumber += button.textContent;
             screenInput.textContent = "";
             screenInput.textContent += button.textContent;
@@ -120,7 +130,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
             secondNumber += button.textContent;
             screenInput.textContent += button.textContent;
         }
-        
+
     }
 
 }));
@@ -136,3 +146,7 @@ function operate(firstNumber, operator, secondNumber) {
         return firstNumber / secondNumber;
     }
 }
+
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000
+  }
